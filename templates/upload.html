@@ -4,31 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Документ</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.css" />
 </head>
 
 <body>
-    <div class="card text-center mt-5 shadow-lg p-3 bg-white rounded w-50 mx-auto my-20">
-        <h4 class="card-title mb-0">ВЕБ-ПРИЛОЖЕНИЕ ДЛЯ СКАНИРОВАНИЯ ДОКУМЕНТОВ <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-laptop" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M13.5 3h-11a.5.5 0 0 0-.5.5V11h12V3.5a.5.5 0 0 0-.5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11z" />
-                <path d="M0 12h16v.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5V12z" />
-            </svg></h4>
-        <form class="validated" method="post" action="/" enctype="multipart/form-data">
-            <div class="custom-file mb-3">
-                <input type="file" name="file" class="custom-file-input" id="document" required>
-                <label class="custom-file-label" for="document">Выберите файл...</label>
-                <div class="invalid-feedback">Пример недействительной обратной связи для пользовательского файла</div>
-            </div>
-            <button type="submit" class="btn btn-block btn-danger">
-                СКАНИРОВАТЬ ДОКУМЕНТ
-            </button>
-        </form>
-        <div class="card-body px-0">
+    <div class="card text-center mt-5 shadow-0 border rounded mx-auto" style="max-width: 36rem;">
+        <div class="card-body">
+            <h4 class="card-title mb-4 text-uppercase">Веб-приложение для сканирования документов</h4>
+            <form method="post" action="/" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <input type="file" name="file" class="form-control" id="document" required>
+                    <label class="custom-file-label pt-4" for="document">Выберите файл...</label>
+                    <div class="invalid-feedback">Пример недействительной обратной связи для пользовательского файла</div>
+                </div>
+                <button type="submit" class="btn btn-danger btn-block text-uppercase">
+                    Сканировать документ
+                </button>
+            </form>
             <div>
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                 {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
+                <div class="alert alert-{{ category }} mt-4">
                     {% if category == 'danger' %}
                     ❌ {{ message }}
                     {% elif category == 'success' %}
@@ -41,14 +38,12 @@
                 {% endif %}
                 {% endwith %}
                 {% if image %}
-                <img class="w-100" src="{{image}}">
+                <img class="w-100 mt-4" src="{{image}}">
                 {% endif %}
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.js"></script>
 </body>
 
 </html>
