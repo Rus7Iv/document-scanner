@@ -15,10 +15,18 @@
             </svg></h4>
         <div class="card-body">
             <div>
-                {% with messages = get_flashed_messages() %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-warning">{{ message }}</div>
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {% if category == 'danger' %}
+                    &#10060; {{ message }}
+                    {% elif category == 'success' %}
+                    &#9989; {{ message }}
+                    {% else %}
+                    &#9888; {{ message }}
+                    {% endif %}
+                </div>
                 {% endfor %}
                 {% endif %}
                 {% endwith %}

@@ -20,11 +20,11 @@ def upload_form():
 @app.route('/', methods=['POST'])
 def upload_image():
 	if 'file' not in request.files:
-		flash('No file part')
+		flash('Нет части файла', 'warning')
 		return redirect(request.url)
 	file = request.files['file']
 	if file.filename == '':
-		flash('No image selected for uploading')
+		flash('Изображение для загрузки не выбрано', 'warning')
 		return redirect(request.url)
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
@@ -59,16 +59,14 @@ def upload_image():
 			img = Image.fromarray(Helpers.resize(img, width=500))
 			img.save(file_object, 'PNG')
 			base64img = "data:image/png;base64," + base64.b64encode(file_object.getvalue()).decode('ascii')
-			flash('Document scan was successful')
+			flash('Документ успешно отсканирован', 'success')
 			return render_template('upload.html', image=base64img )
 		else:
-			flash('Error processing the image')
+			flash('Ошибка сканирования', 'danger')
 			return redirect(request.url)
 
-
-		return render_template('upload.html', image=base64img )
 	else:
-		flash('Allowed image types are -> png, jpg, jpeg')
+		flash('Разрешены типы изображений: png, jpg, jpeg', 'warning')
 		return redirect(request.url)
 
 if __name__ == "__main__":
