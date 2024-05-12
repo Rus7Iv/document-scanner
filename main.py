@@ -27,7 +27,6 @@ def upload_image():
 		flash('No image selected for uploading')
 		return redirect(request.url)
 	if file and allowed_file(file.filename):
-		flash('Document scan was successful')
 		filename = secure_filename(file.filename)
 		
 		filestr = request.files['file'].read()
@@ -52,15 +51,20 @@ def upload_image():
 				screenCnt = approx
 				break
 
-		cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
+		if 'screenCnt' in locals():
+			cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
+			warped = Helpers.transform(orig, screenCnt.reshape(4, 2) * ratio)
+			img = cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)
+			file_object = io.BytesIO()
+			img = Image.fromarray(Helpers.resize(img, width=500))
+			img.save(file_object, 'PNG')
+			base64img = "data:image/png;base64," + base64.b64encode(file_object.getvalue()).decode('ascii')
+			flash('Document scan was successful')
+			return render_template('upload.html', image=base64img )
+		else:
+			flash('Error processing the image')
+			return redirect(request.url)
 
-		warped = Helpers.transform(orig, screenCnt.reshape(4, 2) * ratio)
-
-		img = cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)
-		file_object = io.BytesIO()
-		img= Image.fromarray(Helpers.resize(img,width=500))
-		img.save(file_object, 'PNG')
-		base64img = "data:image/png;base64,"+base64.b64encode(file_object.getvalue()).decode('ascii')
 
 		return render_template('upload.html', image=base64img )
 	else:
