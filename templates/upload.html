@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Документ</title>
+    <title>Сканирование документов</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.css" />
 </head>
 
@@ -14,10 +14,9 @@
             <form method="post" action="/" enctype="multipart/form-data">
                 <div class="mb-4">
                     <input type="file" name="file" class="form-control" id="document" required>
-                    <label class="custom-file-label pt-4" for="document">Выберите файл...</label>
                     <div class="invalid-feedback">Пример недействительной обратной связи для пользовательского файла</div>
                 </div>
-                <button type="submit" class="btn btn-danger btn-block text-uppercase">
+                <button type="submit" class="btn btn-danger btn-block text-uppercase fs-6">
                     Сканировать документ
                 </button>
             </form>
@@ -27,11 +26,11 @@
                 {% for category, message in messages %}
                 <div class="alert alert-{{ category }} mt-4">
                     {% if category == 'danger' %}
-                    ❌ {{ message }}
+                    &#10060; {{ message }}
                     {% elif category == 'success' %}
-                    ✅ {{ message }}
+                    &#9989; {{ message }}
                     {% else %}
-                    ⚠ {{ message }}
+                    &#9888; {{ message }}
                     {% endif %}
                 </div>
                 {% endfor %}
